@@ -11,7 +11,9 @@
 
 class Newpagination {
 	
-	// Items confi pagination
+	/**
+	 *	Items de configuração da páginação
+	 */
 	public $total_rows = 0;
 	public $per_page = 0;
 	public $qtd_links = 0;
@@ -19,6 +21,12 @@ class Newpagination {
 	public $url = "?";
 	public $site_url = "";
 
+
+	/**
+	 *	init
+	 *	@author Kaio Cesar 
+	 *	@return void
+	 */
 	public function init($args=array()) {
 
 		if (count($args)) {
@@ -60,16 +68,16 @@ class Newpagination {
 		//1- Generate links
 		$links="";
 		$count=0;
-		
 
 		for ($c=0; $c < $this->qtd_links; $c++) { 
-			$count += $this->per_page;
 			$links .= '<a href="'.$this->site_url . $this->url.'per_page='.$count.'">'.($c+1).'</a>';
+			$count += $this->per_page;
 		}
 
 		$this->links = $links;
 
 	}
+
 
 	/**
 	 *	handler_url

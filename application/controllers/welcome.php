@@ -6,47 +6,37 @@ class Welcome extends CI_Controller {
 	public function index()
 	{
 
-
+		// Carregamento das libs e helpers
+		$this->load->helper('url');
+		$this->load->helper('file');
 		$this->load->library('newpagination');
-$this->load->helper('url');
+
+
+		// Obtenhos os dados
+		$offset=isset($_GET['per_page']) ? (int)$_GET['per_page'] : 0;
+
+		$this->db->select('*');
+		$this->db->from('estados');
+		$this->db->order_by("NOME", "ASC");
+		$this->db->limit(4, $offset); // (LIMIT POR PÁGINA, id INDEX)
+		$query=$this->db->get();
+		$result=$query->result();
+
+		// workround $total
+		$sel="SELECT count(*) as total FROM estados";
+		$res=$this->db->query($sel)->result();
+		$total=$res[0]->total;
+
 		$this->newpagination->init(
 				array(
-					'per_page'		=>20,
-					'total_rows'	=>100,
+					'per_page'		=> 4,
+					'total_rows'	=> $total,
 					'site_url'		=> site_url()
 				)
 		);
 
-		echo $this->newpagination->links;
+		$data['pagination'] = $this->newpagination->links;
 
-
-		exit;
-		$this->load->helper('url');
-		$this->load->helper('file');
-		$this->load->library('pagination');
-
-
-		// Getting datas
-		$offset= (int)$_GET['per_page'];
-		// items per page
-		$select = 'select * from estados limit '.$offset.', 4';
-		$result = $this->db->query( $select )->result();
-		// total
-		$select = 'select count(*) as total from estados';
-		$total = $this->db->query( $select )->result();
-
-		
-		// Pagination
-		$config['base_url'] = base_url() . "index.php?cli_cod=1";
-        $config['total_rows'] = $total[0]->total;
-        $config['per_page'] = 5;
-        $config['page_query_string'] = TRUE;
-        $config['full_tag_open'] = '<ul class="pagination pagination-lg">';
-        $config['full_tag_close'] = '</ul>';
-        $this->pagination->initialize($config);
-        $data['pagination'] = $this->pagination->create_links();
-        
-        $data['objpag'] = $this->pagination;
 
 		$data['estados']= $result;
 

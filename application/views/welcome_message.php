@@ -1,11 +1,3 @@
-<?php 
-  
-  // echo "<pre>";
-  // echo $objpag->page_order(1);
-  // print_r( $objpag );
-  // exit;
-
-?>
 <!DOCTYPE html>
 <html lang="en">
   <head>
