@@ -23,7 +23,7 @@ class Newpagination {
 	public $url_order = "";
 	public $site_url = "";
 	public $txt_per_page = "per_page";
-	public $txt_order_by = "order";
+	public $txt_order_by = "order_by";
 
 
 
@@ -65,8 +65,7 @@ class Newpagination {
 		// set active link
 		if (isset($_GET['per_page'])) {
 
-		}
-		
+		}		
 	}
 
 
@@ -91,7 +90,6 @@ class Newpagination {
 		}
 
 		$this->links = $links;
-
 	}
 
 
@@ -147,7 +145,7 @@ class Newpagination {
 		$url_order = site_url();		
 		$this->handler_url($_SERVER['QUERY_STRING'], array($this->txt_order_by)); 
 		$url_order .= $this->url . $this->concat_char;
-		return  $url_order . "order=".$value;
+		return  $url_order . $this->txt_order_by . "=".$value;
 	}
 
 
