@@ -103,8 +103,8 @@ class Newpagination {
 	 *	@return void
 	 */
 	private function handler_url($qry_string=null,$restrict=array()) {
-		if (is_null($qry_string)) {
-			return false;
+		if (empty($qry_string) || is_null($qry_string)) {
+			return "";
 		}
 		$params_get = explode("&", str_replace("?","", $qry_string));
 		$params = $this->restrict_items_url($params_get, $restrict);
@@ -124,8 +124,10 @@ class Newpagination {
 		$params = array();
 		foreach ($list as $key => $get) {
 			$exp_get = explode("=", $get);
-			if ( ! in_array($exp_get[0], $items) ) {
-				$params[] = $exp_get[0].'='.$exp_get[1];				
+			if (count($exp_get)) {				
+				if ( ! in_array($exp_get[0], $items) ) {
+					$params[] = $exp_get[0].'='.$exp_get[1];				
+				}
 			}
 		}		
 		return $params;
@@ -142,14 +144,10 @@ class Newpagination {
 		if (is_null($value)) {
 			return "";
 		}
-
-		// link "order_by"
-		$url_order = site_url();
+		$url_order = site_url();		
 		$this->handler_url($_SERVER['QUERY_STRING'], array($this->txt_order_by)); 
-
-		$url_order .= $this->url . $this->concat_char; // ($this->url =="?" || $this->url =="") ? "?" : $this->url . "&";
+		$url_order .= $this->url . $this->concat_char;
 		return  $url_order . "order=".$value;
-		
 	}
 
 

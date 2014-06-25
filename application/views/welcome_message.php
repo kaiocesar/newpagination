@@ -57,9 +57,9 @@
 	      <table class="table table-bordered">
 	        <thead>
 	          <tr>
-	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(1); ?>">Código <span class="caret"></span></a></th>
-              <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(2); ?>">Nome <span class="caret"></span></a></th>
-	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(3); ?>">Sigla <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(0); ?>">Código <span class="caret"></span></a></th>
+              <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(1); ?>">Nome <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(2); ?>">Sigla <span class="caret"></span></a></th>
 	          </tr>
 	        </thead>
 	        <tbody>

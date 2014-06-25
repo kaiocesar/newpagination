@@ -3,8 +3,17 @@
 class Welcome extends CI_Controller {
 
 
-	public function index()
-	{
+	public function index() {
+
+		//Get
+		$offset=isset($_GET['per_page']) ? (int)$_GET['per_page'] : 0;
+		$order=isset($_GET['order']) ? (int)$_GET['order'] : 0;
+
+		$order_arr = array(
+			0 => array('ID','ASC'),
+			1 => array('NOME','ASC'),
+			2 => array('SIGLA','ASC'),
+		);
 
 		// Carregamento das libs e helpers
 		$this->load->helper('url');
@@ -12,12 +21,10 @@ class Welcome extends CI_Controller {
 		$this->load->library('newpagination');
 
 
-		// Obtenhos os dados
-		$offset=isset($_GET['per_page']) ? (int)$_GET['per_page'] : 0;
-
+		// Obtenhos os dados		
 		$this->db->select('*');
 		$this->db->from('estados');
-		$this->db->order_by("NOME", "ASC");
+		$this->db->order_by($order_arr[$order][0], $order_arr[$order][1]);
 		$this->db->limit(4, $offset); // (LIMIT POR PÁGINA, id INDEX)
 		$query=$this->db->get();
 		$result=$query->result();
