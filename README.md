@@ -11,13 +11,15 @@ New Pagination - É uma librarty php para páginação no CodeIgniter.
 2º adicione a "library" ao sistema, dinamicamente(./application/config/autoloader.php) ou estáticamente(ou na action do controller).
 
 3º inicialização 
-`$this->newpagination->init(
+```
+$this->newpagination->init(
 	array(
 		'per_page'		=> 4, 
 		'total_rows'	=> $total,  // total de resultados obtidos (Tome cuidado com o "limit")
 		'site_url'		=> site_url() // necessario que se carregue o modulo helper de url
 	)
-);`
+);
+```
 
 
 
