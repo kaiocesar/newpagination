@@ -36,10 +36,11 @@ class Welcome extends CI_Controller {
 		);
 
 		$data['pagination'] = $this->newpagination->links;
-
-
+		$data['pagination_url'] = $this->newpagination;
 		$data['estados']= $result;
 
 		$this->load->view('welcome_message', $data);
 	}
+
+
 }

@@ -18,8 +18,13 @@ class Newpagination {
 	public $per_page = 0;
 	public $qtd_links = 0;
 	public $links = "";
-	public $url = "?";
+	public $concat_char="?";
+	public $url = "";
+	public $url_order = "";
 	public $site_url = "";
+	public $txt_per_page = "per_page";
+	public $txt_order_by = "order";
+
 
 
 	/**
@@ -46,11 +51,22 @@ class Newpagination {
 
 		}
 
+		// initializate
 		if ($this->per_page > 0 && $this->total_rows > 0) {
 			$this->qtd_links = ceil($this->total_rows / $this->per_page);
 			$this->make_pagination();
 		}
 
+		// set active link
+		if (isset($_GET['per_page'])) {
+
+		}
+
+		// set active link
+		if (isset($_GET['per_page'])) {
+
+		}
+		
 	}
 
 
@@ -62,7 +78,7 @@ class Newpagination {
 	public function make_pagination() {
 
 		if (! $_SERVER['QUERY_STRING'] == null ) {
-			$this->handler_url($_SERVER['QUERY_STRING']);			
+			$this->handler_url($_SERVER['QUERY_STRING'], array($this->txt_per_page));			
 		}
 		
 		//1- Generate links
@@ -70,7 +86,7 @@ class Newpagination {
 		$count=0;
 
 		for ($c=0; $c < $this->qtd_links; $c++) { 
-			$links .= '<a href="'.$this->site_url . $this->url.'per_page='.$count.'">'.($c+1).'</a>';
+			$links .= '<a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.$count.'">'.($c+1).'</a>';
 			$count += $this->per_page;
 		}
 
@@ -86,26 +102,55 @@ class Newpagination {
 	 *	@access private
 	 *	@return void
 	 */
-	private function handler_url($qry_string=null) {
+	private function handler_url($qry_string=null,$restrict=array()) {
 		if (is_null($qry_string)) {
 			return false;
 		}
+		$params_get = explode("&", str_replace("?","", $qry_string));
+		$params = $this->restrict_items_url($params_get, $restrict);
+		$this->url = (count($params)) ? "?". implode("&", $params) : "";
+		$this->concat_char = (count($params)) ? "&" : "?";
+	}
 
-		$p_get = explode("&", str_replace("?","", $_SERVER['QUERY_STRING']));
+	/**
+	 *	restrict_items_url
+	 *	@author Kaio Cesar 
+	 *	@todo Tratamento dos parametos que apareceram na url final.
+	 *	@access private
+	 *	@return string
+	 */
+	private function restrict_items_url($list=null,$items=array()) {
+
 		$params = array();
-
-		foreach ($p_get as $key => $get) {
+		foreach ($list as $key => $get) {
 			$exp_get = explode("=", $get);
-			if ($exp_get[0] != 'per_page') {
+			if ( ! in_array($exp_get[0], $items) ) {
 				$params[] = $exp_get[0].'='.$exp_get[1];				
 			}
-		}
-
-		$this->url = (count($params)) ? "?". implode("&", $params) ."&" : "?";
-
+		}		
+		return $params;
 	}
 
 
+	/**
+	 *	make_link_orderby
+	 *	@author Kaio Cesar 
+	 *	@todo 
+	 *	@return string
+	 */
+	public function make_link_orderby($value=null){
+		if (is_null($value)) {
+			return "";
+		}
+
+		// link "order_by"
+		$url_order = site_url();
+		$this->handler_url($_SERVER['QUERY_STRING'], array($this->txt_order_by)); 
+
+		$url_order .= $this->url . $this->concat_char; // ($this->url =="?" || $this->url =="") ? "?" : $this->url . "&";
+		return  $url_order . "order=".$value;
+		
+	}
 
 
 } // end class Newpagination
