@@ -52,14 +52,14 @@
     <div class="container">
 
       <div class="starter-template">
-        <h1>Ordenação de items por coluna</h1>
+        <h1>Estendendo plugin "pagination" codeIgniter</h1>
         <div class="table-responsive">
 	      <table class="table table-bordered">
 	        <thead>
 	          <tr>
-	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(0); ?>">Código <span class="caret"></span></a></th>
-              <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(1); ?>">Nome <span class="caret"></span></a></th>
-	            <th  class="text-center"><a href="<?php echo $pagination_url->make_link_orderby(2); ?>">Sigla <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=1'.'&per_page='.(int)$this->input->get('per_page'); ?>">Código <span class="caret"></span></a></th>
+              <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=2'.'&per_page='.(int)$this->input->get('per_page'); ?>">Nome <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=3'.'&per_page='.(int)$this->input->get('per_page'); ?>">Sigla <span class="caret"></span></a></th>
 	          </tr>
 	        </thead>
 	        <tbody>

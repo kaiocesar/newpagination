@@ -87,11 +87,14 @@ class Newpagination {
 		$links="";
 		$count=0;
 		$d=0;
+		$value_link_current=0;
 		for ($c=0; $c < $this->qtd_links; $c++) { 
 			if ($c >= $this->limit_links) {
 				break;
 			}
 			$active = ($per_page==$count) ? ' class="active" ' : "";
+			$value_link_current = ($per_page==$count) ? $count : $this->per_page;
+
 			$links .= '<li '.$active.' ><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.$count.'">'.($c+1).'</a></li>';
 			$count += $this->per_page;
 			
@@ -99,10 +102,14 @@ class Newpagination {
 			$d++;
 		}
 
+		$prev_link=($value_link_current!=$this->per_page) ? 2/$value_link_current : $value_link_current;
+		$next_link=($value_link_current!=$this->per_page) ? 2*$value_link_current : $this->per_page;
+		
+
 		$this->links = '<ul class="pagination">';
 		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'=0">&lt;&lt;</a></li>';
 		$this->links .= $links;
-		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.(2* $per_page).'">&gt;</a></li>';
+		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.($next_link).'">&gt;</a></li>';
 		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.($this->qtd_links*$this->per_page-$this->per_page).'">&gt;&gt;</a></li></ul>';
 	}
 
