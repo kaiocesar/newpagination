@@ -23,7 +23,8 @@ class Newpagination {
 	public $url_order = "";
 	public $site_url = "";
 	public $txt_per_page = "per_page";
-	public $txt_order_by = "order_by";
+	public $txt_order_by = "order";
+	public $limit_links = 3;
 
 
 
@@ -80,16 +81,29 @@ class Newpagination {
 			$this->handler_url($_SERVER['QUERY_STRING'], array($this->txt_per_page));			
 		}
 		
+		$per_page=(isset($_GET['per_page']))? (int)$_GET['per_page'] : 0;
+
 		//1- Generate links
 		$links="";
 		$count=0;
-
+		$d=0;
 		for ($c=0; $c < $this->qtd_links; $c++) { 
-			$links .= '<a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.$count.'">'.($c+1).'</a>';
+			if ($c >= $this->limit_links) {
+				break;
+			}
+			$active = ($per_page==$count) ? ' class="active" ' : "";
+			$links .= '<li '.$active.' ><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.$count.'">'.($c+1).'</a></li>';
 			$count += $this->per_page;
+			
+
+			$d++;
 		}
 
-		$this->links = $links;
+		$this->links = '<ul class="pagination">';
+		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'=0">&lt;&lt;</a></li>';
+		$this->links .= $links;
+		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.(2* $per_page).'">&gt;</a></li>';
+		$this->links .= '<li><a href="'.$this->site_url . $this->url.$this->concat_char.$this->txt_per_page.'='.($this->qtd_links*$this->per_page-$this->per_page).'">&gt;&gt;</a></li></ul>';
 	}
 
 

@@ -10,7 +10,7 @@ class Welcome extends CI_Controller {
 		$order=isset($_GET['order']) ? (int)$_GET['order'] : 0;
 
 		$order_arr = array(
-			0 => array('ID','ASC'),
+			0 => array('ID','DESC'),
 			1 => array('NOME','ASC'),
 			2 => array('SIGLA','ASC'),
 		);
@@ -25,7 +25,7 @@ class Welcome extends CI_Controller {
 		$this->db->select('*');
 		$this->db->from('estados');
 		$this->db->order_by($order_arr[$order][0], $order_arr[$order][1]);
-		$this->db->limit(4, $offset); // (LIMIT POR PÁGINA, id INDEX)
+		$this->db->limit(3, $offset); // (LIMIT POR PÁGINA, id INDEX)
 		$query=$this->db->get();
 		$result=$query->result();
 
@@ -36,9 +36,9 @@ class Welcome extends CI_Controller {
 
 		$this->newpagination->init(
 				array(
-					'per_page'		=> 4,
-					'total_rows'	=> $total,
-					'site_url'		=> site_url()
+					'per_page'	 => 3,
+					'total_rows' => $total,
+					'site_url'	 => site_url()
 				)
 		);
 
