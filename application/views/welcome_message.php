@@ -57,9 +57,9 @@
 	      <table class="table table-bordered">
 	        <thead>
 	          <tr>
-	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=1'.'&per_page='.(int)$this->input->get('per_page'); ?>">Código <span class="caret"></span></a></th>
-              <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=2'.'&per_page='.(int)$this->input->get('per_page'); ?>">Nome <span class="caret"></span></a></th>
-	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=3'.'&per_page='.(int)$this->input->get('per_page'); ?>">Sigla <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=0'.'&per_page='.(int)$this->input->get('per_page'); ?>">Código <span class="caret"></span></a></th>
+              <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=1'.'&per_page='.(int)$this->input->get('per_page'); ?>">Nome <span class="caret"></span></a></th>
+	            <th  class="text-center"><a href="<?php echo current_url().'?cli_cod='.(int)$this->input->get('cli_cod').'&order_by=2'.'&per_page='.(int)$this->input->get('per_page'); ?>">Sigla <span class="caret"></span></a></th>
 	          </tr>
 	        </thead>
 	        <tbody>

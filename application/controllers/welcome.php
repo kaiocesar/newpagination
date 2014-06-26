@@ -53,10 +53,10 @@ class Welcome extends CI_Controller {
 
 	public function teste(){
 		$offset=isset($_GET['per_page']) ? (int)$_GET['per_page'] : 0;
-		$order=isset($_GET['order']) ? (int)$_GET['order'] : 0;
+		$order=isset($_GET['order_by']) ? (int)$_GET['order_by'] : 0;
 
 		$order_arr = array(
-			0 => array('ID','ASC'),
+			0 => array('ID','DESC'),
 			1 => array('NOME','ASC'),
 			2 => array('SIGLA','ASC'),
 		);
